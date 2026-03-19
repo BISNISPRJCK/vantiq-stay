@@ -1752,7 +1752,7 @@
                     <li><a href="{{ url('/contact') }}">CONTACT</a></li>
                 </ul>
 
-                <a href="{{ url('/booking') }}" class="booking-now">BOOKING NOW</a>
+                <a href="http://localhost:8080/admin" class="booking-now">BOOKING NOW</a>
 
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <span></span>
@@ -2209,7 +2209,7 @@
         });
     </script>
     <!-- Floating Booking Button for Mobile -->
-<a href="{{ url('/booking') }}" class="floating-booking-btn">
+<a href="http://localhost:8080/admin" class="floating-booking-btn">
     <span class="btn-text">BOOKING NOW</span>
     <span class="btn-arrow">→</span>
 </a>
