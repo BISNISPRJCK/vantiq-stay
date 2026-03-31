@@ -54,6 +54,7 @@ class BookingController extends Controller
         }
 
         $totalPrice = $days * $room->price;
+        $externalId = 'BOOK-' . time();
 
         $booking = Booking::create([
             'user_id' => Auth::id(),
@@ -61,20 +62,22 @@ class BookingController extends Controller
             'check_in' => $request->check_in,
             'check_out' => $request->check_out,
             'total_price' => $totalPrice,
-            'status' => 'pending'
+            'status' => 'pending',
+            'payment_status' => 'pending',
+            'order_id' => $externalId
         ]);
 
         try {
             Configuration::setXenditKey(config('xendit.api_key'));
             $apiInstance = new InvoiceApi();
 
-            $externalId = 'BOOK-' . time();
+
 
             $params = [
                 'external_id' => $externalId,
                 'amount' => (int) $totalPrice,
                 'payer_email' => Auth::user()->email ?? 'guest@gmail.com',
-                'description' => 'Booking Aprtement',
+                'description' => 'Booking Aprtment',
 
 
 
@@ -87,7 +90,6 @@ class BookingController extends Controller
             //update booking
 
             $booking->update([
-                'order_id' => $externalId,
                 'payment_url' => $invoice['invoice_url']
             ]);
 
@@ -113,44 +115,41 @@ class BookingController extends Controller
         }
     }
 
-    public function handleCallBack(Request $request)
+    public function xenditCallback(Request $request)
     {
-        $serverKey = config('midtarns.server.key');
+        Log::info('XENDIT CALLBACK:', $request->all());
 
-        $hashed = hash(
-            "sha512",
-            $request->order_id .
-                $request->status_code .
-                $request->gross_amount .
-                $serverKey
-        );
+        $externalId = $request->external_id;
 
-        if ($hashed != $request->signature_key) {
-            return response()->json(['message' => 'Invalid Signature'], 403);
-        }
+        LOG::info('EXTERNAL ID DARI XENDIT', [
+            'external_id' => $externalId
+        ]);
+        $status = $request->status;
 
-        $booking = Booking::where('order_id', $request->order_id)->first();
+        $booking = Booking::where('order_id', $externalId)->first();
 
         if (!$booking) {
-            return response()->json(['message' => 'Booking not found']);
+            Log::error('BOOKING TIDAK DITEMUKAN', [
+                'external_id' => $externalId
+            ]);
+
+            return response()->json(['message' => 'Booking not found'], 404);
         }
 
-        if ($request->transaction_status == 'settlement') {
+        LOG::info('BOOKING DITEMUKAN', [
+            'id' => $booking->id,
+            'order_id' => $booking->order_id
+        ]);
+
+        // kalau ada booking 
+
+        if ($request->status == 'PAID') {
             $booking->update([
                 'status' => 'approved',
-                'payment_status' => 'paid'
-            ]);
-        } elseif ($request->transaction_status == 'pending') {
-            $booking->update([
-                'parment_status' => 'pending'
-            ]);
-        } elseif ($request->transaction_status == 'expire') {
-            $booking->update([
-                'status' => 'cancelled',
-                'payment_status' => 'expired'
+                'payment_status' => 'paid',
             ]);
         }
 
-        return response()->json(['message' => 'Ok']);
+        return response()->json(['message' => 'OK']);
     }
 }

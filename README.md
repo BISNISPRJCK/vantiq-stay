@@ -1,19 +1,9 @@
 kebutuhan intall untuk payment getway :
 
-composer require midtrans/midtrans-php
+// menggunakan xendit
 
-// UNTUK FRONTEND
+pr untuk frontend
+ubah bagian column booking di mysql dengan pertintah berikut :
 
-User bayar pakai Snap:
-
-snap.pay(snap_token, {
-onSuccess: function(result){
-console.log('paid');
-},
-onPending: function(result){
-console.log('pending');
-},
-onError: function(result){
-console.log('error');
-}
-});
+<!-- ALTER TABLE bookings
+MODIFY status ENUM('pending','approved','cancelled') DEFAULT 'pending'; -->
