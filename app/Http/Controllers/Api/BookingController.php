@@ -9,12 +9,15 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Booking;
 use App\Models\Room;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Xendit\Configuration;
 use Xendit\Invoice\InvoiceApi;
+use Illuminate\Support\Str;
 
 
+use function Symfony\Component\Clock\now;
 
 class BookingController extends Controller
 {
@@ -27,7 +30,25 @@ class BookingController extends Controller
             'check_out' => 'required|date|after:check_in'
         ]);
 
+        $user = Auth::user();
+
+        // cek profile lengkap
+        if (!$user->phone || !$user->address || !$user->ktp_photo) {
+            return response()->json([
+                'success' => false,
+                'message' => 'lengkapi profil terlebih dahulu'
+            ], 400);
+        }
+
         $room = Room::findOrFail($request->room_id);
+
+        // cek status room 
+        if ($room->status !== 'available') {
+            return response()->json([
+                'success' => false,
+                'message' => 'kamar tidak tersedia'
+            ], 400);
+        }
         $checkIn = Carbon::parse($request->check_in);
         $checkOut = Carbon::parse($request->check_out);
 
@@ -42,9 +63,11 @@ class BookingController extends Controller
 
         $existingBooking = Booking::where('room_id', $request->room_id)
             ->where(function ($query) use ($request) {
-                $query->whereBetween('check_in', [$request->check_in, $request->check_out])
-                    ->orWhereBetween('check_out', [$request->check_in, $request->check_out]);
-            })->exists();
+                $query->where('check_in', '<', $request->check_out)
+                    ->where('check_out', '>', $request->check_in);
+            })
+            ->where('status', '!=', 'cancelled')
+            ->exists();
 
         if ($existingBooking) {
             return response()->json([
@@ -54,20 +77,22 @@ class BookingController extends Controller
         }
 
         $totalPrice = $days * $room->price;
-        $externalId = 'BOOK-' . time();
+        $externalId = 'BOOK-' . Str::uuid();
+        DB::beginTransaction();
 
-        $booking = Booking::create([
-            'user_id' => Auth::id(),
-            'room_id' => $request->room_id,
-            'check_in' => $request->check_in,
-            'check_out' => $request->check_out,
-            'total_price' => $totalPrice,
-            'status' => 'pending',
-            'payment_status' => 'pending',
-            'order_id' => $externalId
-        ]);
 
         try {
+            $booking = Booking::create([
+                'user_id' => Auth::id(),
+                'room_id' => $request->room_id,
+                'check_in' => $request->check_in,
+                'check_out' => $request->check_out,
+                'total_price' => $totalPrice,
+                'status' => 'pending',
+                'payment_status' => 'pending',
+                'order_id' => $externalId
+            ]);
+
             Configuration::setXenditKey(config('xendit.api_key'));
             $apiInstance = new InvoiceApi();
 
@@ -77,7 +102,8 @@ class BookingController extends Controller
                 'external_id' => $externalId,
                 'amount' => (int) $totalPrice,
                 'payer_email' => Auth::user()->email ?? 'guest@gmail.com',
-                'description' => 'Booking Aprtment',
+                'description' => 'Booking Apartement Room #' . $room->room_number,
+                'expiry_date' => Carbon::now()->addHours(24)->toIso8601String(),
 
 
 
@@ -92,6 +118,8 @@ class BookingController extends Controller
             $booking->update([
                 'payment_url' => $invoice['invoice_url']
             ]);
+
+            DB::commit();
 
 
             return response()->json([
@@ -151,5 +179,87 @@ class BookingController extends Controller
         }
 
         return response()->json(['message' => 'OK']);
+    }
+
+
+    public function myBookings(Request $request)
+    {
+        $user = $request->user();
+
+        $data = Booking::with('room')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+
+    public function getAllBookings()
+    {
+        $data = Booking::with(['user', 'room'])
+            ->latest()
+            ->get();
+
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+
+    public function approveBooking($id)
+    {
+        $booking = Booking::find($id);
+
+        if (!$booking) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Booking tidak ditemukan'
+            ], 404);
+        }
+
+        if ($booking->status === 'approved') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Booking sudah di approve'
+            ]);
+        }
+
+        $booking->update([
+            'status' => 'approved',
+            'payment_status' => 'paid'
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Booking berhasil di approve',
+            'data' => $booking
+        ]);
+    }
+
+    public function cancelBooking($id)
+    {
+        $booking = Booking::find($id);
+
+        if (!$booking) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Booking tidak ditemukan'
+            ], 404);
+        }
+
+        $booking->update([
+            'status' => 'cancelled'
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Booking berhasil dibatalkan'
+        ]);
     }
 }

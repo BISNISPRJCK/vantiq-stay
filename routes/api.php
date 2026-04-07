@@ -32,10 +32,20 @@ Route::middleware('auth:sanctum')->group(function () {
 
   Route::post('/bookings', [BookingController::class, 'AddBooking']);
   Route::post('/testimonials', [TestimonialController::class, 'store']);
+
+  // Booking with user
+
+  Route::get('/my-bookings', [BookingController::class, 'myBookings']);
+
+  //Booking with Admin
+  Route::get('/bookings', [BookingController::class, 'getAllBookings']);
+  Route::get('/bookings/{id}/approve', [BookingController::class, 'approveBooking']);
+  Route::get('/bookings/{id}/cancel', [BookingController::class, 'cancelBooking']);
 });
 
 // Booking
 
 
 // testimonial
+Route::get('/testimonials', [TestimonialController::class, 'getLatestTestimonials']);
 Route::get('/rooms/{id}/testimonials', [TestimonialController::class, 'getByRoom']);

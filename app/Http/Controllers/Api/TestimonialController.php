@@ -33,7 +33,7 @@ class TestimonialController extends Controller
 
         // optional hanya boleh jika booking selesai
 
-        if ($booking->status !== 'confirmed') {
+        if ($booking->status !== 'approved') {
             return response()->json([
                 'message' => 'Belum Bisa Memberikan testimoni'
             ]);
@@ -62,6 +62,20 @@ class TestimonialController extends Controller
         ]);
     }
 
+
+    public function getLatestTestimonials()
+    {
+        $data = Testimonial::with(['user', 'room'])
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+
     public function getByRoom($room_id)
     {
         $data = Testimonial::with('user')
@@ -69,6 +83,9 @@ class TestimonialController extends Controller
             ->latest()
             ->get();
 
-        return response()->json($data);
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
     }
 }
