@@ -424,4 +424,28 @@ class PageController extends Controller
     {
         return view('pages.testimonials');
     }
+
+    public function index()
+    {
+        return view('pages.booking.index');
+    }
+
+    public function storeBooking(Request $request)
+    {
+        // Validasi data
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'no_telepon' => 'required|string|max:20',
+        ]);
+
+        // Simpan ke session untuk sementara
+        Session::put('booking_data', [
+            'nama_lengkap' => $validated['nama_lengkap'],
+            'no_telepon' => $validated['no_telepon'],
+            'booking_date' => now(),
+        ]);
+
+        // Redirect ke halaman pembayaran atau kembali dengan pesan sukses
+        return redirect()->route('booking.index')->with('success', 'Data diri berhasil disimpan! Silakan lanjutkan ke pembayaran.');
+    }
 }

@@ -117,20 +117,31 @@ Route::post('/register', function (Request $request) {
     }
     
     return redirect()->route('home')->with('success', 'Account created successfully! Welcome to Vantix Stay.');
-})->name('register.submit');
+    })->name('register.submit');
 
-// Logout Route
-Route::post('/logout', function () {
-    Session::forget('user');
-    Session::forget('pending_booking');
-    
-    if (request()->ajax() || request()->wantsJson()) {
-        return response()->json([
-            'success' => true,
-            'message' => 'Logged out successfully!',
-            'redirect' => route('home')
-        ]);
-    }
-    
-    return redirect()->route('home')->with('success', 'You have been logged out.');
-})->name('logout');
+    // Logout Route
+    Route::post('/logout', function () {
+        Session::forget('user');
+        Session::forget('pending_booking');
+        
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Logged out successfully!',
+                'redirect' => route('home')
+            ]);
+        }
+        
+        return redirect()->route('home')->with('success', 'You have been logged out.');
+    })->name('logout');
+
+    // ============= BOOKING ROUTES =============
+    // Halaman Booking
+    Route::get('/booking', [PageController::class, 'index'])->name('booking.index');
+
+    // Proses Booking (POST)
+    Route::post('/booking/store', [PageController::class, 'storeBooking'])->name('booking.store');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard.index');
+    })->name('dashboard');

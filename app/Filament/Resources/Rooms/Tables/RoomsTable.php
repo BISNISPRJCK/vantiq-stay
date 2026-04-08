@@ -37,6 +37,9 @@ class RoomsTable
                         default => 'gray'
                     }),
 
+                Tables\Columns\TextColumn::make('description')
+                    ->limit(50),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime(),

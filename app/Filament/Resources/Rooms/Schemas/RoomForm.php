@@ -7,6 +7,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\RichEditor;
 
 class RoomForm
 {
@@ -28,7 +29,9 @@ class RoomForm
 
                 FileUpload::make('image')->label('Room Image')->image()->disk('public')->directory('rooms')->imagePreviewHeight(200)->required(),
 
-                TextArea::make('description')->label('Description')->columnSpanFull()
+                RichEditor::make('description')
+                    ->label('Description')
+                    ->columnSpanFull()
             ]);
     }
 }
