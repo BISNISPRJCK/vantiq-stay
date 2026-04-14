@@ -18,6 +18,7 @@ class RoomCategoriesTable
                     ->label('Category Name')
                     ->searchable(),
                 TextColumn::make('description')
+                    ->html()
                     ->limit(50),
                 TextColumn::make('created_at')
                     ->dateTime(),

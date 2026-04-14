@@ -5,6 +5,7 @@ namespace App\Filament\Resources\RoomCategories\Schemas;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\RichEditor;
 
 class RoomCategoryForm
 {
@@ -16,10 +17,9 @@ class RoomCategoryForm
                     ->label('Category Name')
                     ->required()
                     ->maxLength(255),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->label('Description')
-                    ->rows(3)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
             ]);
     }
 }

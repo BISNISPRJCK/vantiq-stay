@@ -38,6 +38,7 @@ class RoomsTable
                     }),
 
                 Tables\Columns\TextColumn::make('description')
+                    ->html()
                     ->limit(50),
 
                 Tables\Columns\TextColumn::make('created_at')
@@ -45,7 +46,6 @@ class RoomsTable
                     ->dateTime(),
             ])
             ->filters([
-                //
             ])
             ->recordActions([
                 EditAction::make(),
