@@ -22,19 +22,22 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
         /* wrapper sebagai container utama */
         .wrapper {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
 
         /* main area untuk sidebar dan content */
@@ -42,6 +45,7 @@
             display: flex;
             flex: 1 1 auto;
             overflow: hidden;
+            min-height: 0;
         }
 
         /* sidebar styling */
@@ -55,6 +59,7 @@
             );
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
         }
 
         /* sidebar-custom sebagai container fleksibel */
@@ -76,12 +81,20 @@
             padding: 5px;
         }
 
-        /* content wrapper */
+        /* content wrapper - sebagai container untuk konten dan footer */
         .content-wrapper {
             flex: 1;
             background: #1E1E1E;
             color: #FFD700;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container untuk konten utama */
+        .main-content {
+            flex: 1;
+            padding: 20px 24px;
         }
 
         /* navbar styling */
@@ -93,6 +106,7 @@
             );
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             min-height: 50px;
+            flex-shrink: 0;
         }
 
         .navbar-custom .navbar-brand,
@@ -137,27 +151,25 @@
             color: #FFD700 !important;
         }
 
-        /* footer styling - full width melebar ke sidebar */
+        /* footer styling - hanya di dalam content-wrapper */
         .footer-custom {
             background: #615515;
             border: 2px solid rgba(245, 229, 107, 0.5);
-            height: 46px;
+            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
             flex-shrink: 0;
-            margin-top: 20px; /* ini yang membuat terpisah */
+            margin-top: auto;
         }
 
-        
-
-        /* Hilangkan margin-top:100px yang sebelumnya */
         .footer-content {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 5px;
             color: #F5E56B;
+            font-size: 15px;
             font-weight: 500;
         }
 
@@ -167,7 +179,7 @@
 
         .logout-divider {
             border-top: 1px solid #737373;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .logout-item {
@@ -219,12 +231,13 @@
         <div class="main">
             @include('dashboard.layouts.partials.sidebar')
 
-            <div class="content-wrapper p-4">
-                @yield('content')
+            <div class="content-wrapper">
+                <div class="main-content">
+                    @yield('content')
+                </div>
+                @include('dashboard.layouts.partials.footer')
             </div>
         </div>
-
-        @include('dashboard.layouts.partials.footer')
     </div>
 
     @include('dashboard.layouts.partials.scripts')
