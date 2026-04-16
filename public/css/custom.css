@@ -1,23 +1,11 @@
-.content-wrapper .content {
-    scroll-behavior: smooth;
-}
+/* ===================== */
+/* GLOBAL & RESET */
+/* ===================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap");
 
-/* optional scrollbar styling */
-.content-wrapper .content::-webkit-scrollbar {
-    width: 6px;
+* {
+    font-family: "Inter", sans-serif;
 }
-
-.content-wrapper .content::-webkit-scrollbar-thumb {
-    background: #ffd700;
-    border-radius: 10px;
-}
-
-/* Bikin hanya area content yang scroll */
-/* .content-wrapper .content {
-    max-height: calc(100vh - 140px); 
-    overflow-y: auto;
-    padding-right: 10px;
-} */
 
 html,
 body {
@@ -27,29 +15,47 @@ body {
 
 .wrapper {
     height: 100vh;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
+/* ===================== */
+/* SCROLLBAR STYLING */
+/* ===================== */
 .content-wrapper {
-    height: 100vh;
+    flex: 1;
     overflow-y: auto;
+    background-color: #1e1e1e !important;
+    padding-bottom: 80px;
 }
 
-.main-header {
-    position: sticky;
-    top: 0;
-    z-index: 1030;
+.content-wrapper::-webkit-scrollbar {
+    width: 6px;
 }
-
-.main-sidebar {
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
+.content-wrapper::-webkit-scrollbar-track {
+    background: #1e1e1e;
 }
-
-/* optional: biar scrollnya halus */
+.content-wrapper::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 10px;
+}
+.content-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #f0bc0f;
+}
 .content-wrapper .content {
     scroll-behavior: smooth;
+    flex: 1;
+}
+
+/* ===================== */
+/* SIDEBAR STYLING */
+/* ===================== */
+.main-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    overflow: hidden;
 }
 
 aside.main-sidebar.sidebar-dark-primary {
@@ -63,89 +69,103 @@ aside.main-sidebar.sidebar-dark-primary {
 
 .main-sidebar .brand-link {
     background: transparent !important;
+    border-bottom: 1px solid #000000 !important;
 }
-
 .main-sidebar .sidebar {
     background: transparent !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.main-sidebar .nav-sidebar {
+    flex: 1;
 }
 
-/* Sidebar text default */
+/* Sidebar text & icon */
 .main-sidebar .nav-link {
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 18px;
     color: rgba(149, 141, 117, 0.8) !important;
 }
-
-/* Sidebar icon default */
 .main-sidebar .nav-link i {
     color: rgba(149, 141, 117, 0.8) !important;
 }
-
-/* Sidebar active */
 .main-sidebar .nav-link.active {
     color: #ffd700 !important;
-}
-
-/* Sidebar active icon */
-.main-sidebar .nav-link.active i {
-    color: #ffd700 !important;
-}
-
-.main-sidebar .nav-link.active {
     background: rgba(255, 215, 0, 0.15) !important;
-    color: #ffd700 !important;
     border-radius: 8px;
     margin: 4px 8px;
 }
-
-/* Hover effect (bonus biar smooth) */
+.main-sidebar .nav-link.active i {
+    color: #ffd700 !important;
+}
 .main-sidebar .nav-link:hover {
     color: #ffd700 !important;
 }
-
 .main-sidebar .nav-link:hover i {
     color: #ffd700 !important;
 }
 
-/* Sidebar Brand Text */
+/* Brand text */
 .brand-text {
     color: #ffd700 !important;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
-
-/* Sidebar Logo Icon */
 .brand-link .brand-image {
     opacity: 1 !important;
 }
-/* Garis bawah logo sidebar */
-.brand-link {
-    border-bottom: 1px solid #000000 !important;
+
+/* Logout menu */
+.logout-menu {
+    margin-top: auto !important;
+    border-top: 1px solid #737373;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+.logout-menu .nav-link {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: rgba(149, 141, 117, 0.8) !important;
+}
+.logout-menu .nav-link i {
+    color: rgba(149, 141, 117, 0.8) !important;
+}
+.logout-menu .nav-link:hover {
+    color: #ffd700 !important;
+}
+.logout-menu .nav-link:hover i {
+    color: #ffd700 !important;
 }
 
-/* NAVBAR GRADIENT */
+/* ===================== */
+/* NAVBAR STYLING */
+/* ===================== */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    flex: 0 0 auto;
+}
+
 .main-header.navbar {
     background: linear-gradient(
         90deg,
         #1e1e1e 50.48%,
         rgba(228, 211, 160, 0.8) 99.52%
     ) !important;
-
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
 }
-
-/* Text navbar */
 .main-header .nav-link {
     color: #ffd700 !important;
 }
-
-/* Icon navbar */
 .main-header .nav-link i {
     color: #918972 !important;
 }
 
-/* Search Navbar Style */
+/* Search */
 .navbar-search-block .form-control {
     background: #d9d9d9 !important;
     border-radius: 8px !important;
@@ -154,128 +174,57 @@ aside.main-sidebar.sidebar-dark-primary {
     border: none;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
-/* Search Icon */
+.navbar-search-block .form-control::placeholder {
+    color: rgba(105, 105, 103, 0.5);
+    font-family: "Poppins", sans-serif;
+}
 .navbar-search-block .btn {
     background: transparent;
     border: none;
 }
 
-/* Placeholder text */
-.navbar-search-block .form-control::placeholder {
-    color: rgba(105, 105, 103, 0.5);
-    font-family: "Poppins", sans-serif;
-}
-
-/* ============================= */
-/* Sidebar Flex Layout */
-/* ============================= */
-.main-sidebar .sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-/* Menu utama */
-.main-sidebar .nav-sidebar {
-    flex: 1;
-}
-
-/* ============================= */
-/* Logout di paling bawah */
-/* ============================= */
-.logout-menu {
-    margin-top: auto !important;
-    border-top: 1px solid #737373;
-    padding-top: 15px;
-    margin-bottom: 20px;
-}
-
-/* Logout style */
-.logout-menu .nav-link {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    color: rgba(149, 141, 117, 0.8) !important;
-}
-
-.logout-menu .nav-link i {
-    color: rgba(149, 141, 117, 0.8) !important;
-}
-
-/* Hover logout */
-.logout-menu .nav-link:hover {
-    color: #ffd700 !important;
-}
-
-.logout-menu .nav-link:hover i {
-    color: #ffd700 !important;
-}
 /* ===================== */
-/* Footer Vantix */
+/* FOOTER STYLING */
 /* ===================== */
-
+.main-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    background: #615515;
+}
 .content-footer {
-    margin-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: auto;
+    padding-bottom: 1px;
 }
-
-/* Box footer */
 .footer-box {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-
     width: 100%;
     height: 36px;
-
     background: #615515;
     border: 2px solid rgba(245, 229, 107, 0.5);
-
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 15px;
-
     color: #f5e56b;
 }
-
-/* Icon */
 .footer-icon {
     color: #f5e56b;
     font-size: 22px;
 }
-
-/* Text */
 .footer-text {
     color: #f5e56b;
 }
-/* ===================== */
-/* Footer selalu di bawah layar */
-/* ===================== */
 
-.content-wrapper {
-    /* min-height: 100vh;
-    display: flex;
-    flex-direction: column; */
-    background-color: #1e1e1e !important;
-}
-
-/* Isi content */
+/* ===================== */
+/* CONTENT STYLING */
+/* ===================== */
 .content {
     color: #ffd700;
 }
-
-/* Header content */
-.content-header h1 {
-    color: #ffd700;
-}
-
-/* Small box text */
-.small-box .inner {
-    color: #ffd700 !important;
-}
-/* Warna teks header */
 .content-header h1 {
     color: #ffd700;
 }
@@ -283,24 +232,9 @@ aside.main-sidebar.sidebar-dark-primary {
     flex: 1;
 }
 
-.content-footer {
-    margin-top: auto;
-    padding-bottom: 1px;
-}
 /* ===================== */
-/* Global Style */
+/* WELCOME BOX */
 /* ===================== */
-
-@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap");
-
-* {
-    font-family: "Inter", sans-serif;
-}
-
-/* ===================== */
-/* Welcome Box */
-/* ===================== */
-
 .welcome-box {
     background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
     border: 1px solid rgba(255, 215, 0, 0.3);
@@ -311,20 +245,17 @@ aside.main-sidebar.sidebar-dark-primary {
         transform 0.2s ease,
         box-shadow 0.2s ease;
 }
-
 .welcome-box:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 28px rgba(255, 215, 0, 0.1);
     border-color: rgba(255, 215, 0, 0.5);
 }
-
 .welcome-text h2 {
     color: #ffd700;
     font-weight: 700;
     letter-spacing: -0.5px;
     margin-bottom: 8px;
 }
-
 .welcome-text p {
     color: rgba(255, 215, 0, 0.8);
     font-size: 14px;
@@ -332,9 +263,8 @@ aside.main-sidebar.sidebar-dark-primary {
 }
 
 /* ===================== */
-/* Custom Box Card (Glassmorphism) */
+/* CUSTOM BOX CARD */
 /* ===================== */
-
 .custom-box {
     background: rgba(42, 42, 42, 0.85) !important;
     backdrop-filter: blur(10px);
@@ -344,21 +274,18 @@ aside.main-sidebar.sidebar-dark-primary {
     transition: all 0.25s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-
 .custom-box:hover {
     transform: translateY(-5px);
     border-color: #ffd700;
     box-shadow: 0 12px 24px rgba(255, 215, 0, 0.15);
     background: rgba(42, 42, 42, 0.95) !important;
 }
-
 .custom-box .inner h3 {
     color: #ffd700 !important;
     font-size: 36px;
     font-weight: 800;
     margin-bottom: 8px;
 }
-
 .custom-box .inner p {
     color: rgba(255, 215, 0, 0.8) !important;
     font-weight: 500;
@@ -366,9 +293,8 @@ aside.main-sidebar.sidebar-dark-primary {
 }
 
 /* ===================== */
-/* Info Section */
+/* INFO SECTION */
 /* ===================== */
-
 .info-card {
     background: linear-gradient(145deg, #232323, #1e1e1e);
     border-left: 5px solid #ffd700;
@@ -377,13 +303,11 @@ aside.main-sidebar.sidebar-dark-primary {
     transition: all 0.2s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-
 .info-card:hover {
     transform: translateX(5px);
     background: #2a2a2a;
     border-left-width: 6px;
 }
-
 .info-card h4 {
     color: #ffd700;
     font-weight: 700;
@@ -392,32 +316,23 @@ aside.main-sidebar.sidebar-dark-primary {
     align-items: center;
     gap: 8px;
 }
-
 .info-card p {
     color: rgba(255, 215, 0, 0.75);
     line-height: 1.5;
     margin-bottom: 0;
 }
 
-/* proifle */
-/* Background page */
-/* .content-wrapper {
-    background: #1e1e1e !important;
-} */
-
-/* Wrapper */
+/* ===================== */
+/* PROFILE PAGE */
+/* ===================== */
 .profile-wrapper {
     display: flex;
     justify-content: center;
     padding: 40px 20px;
 }
-
-/* Card */
 .profile-card {
     width: 800px;
 }
-
-/* Label */
 .profile-label {
     font-family: "Poppins", sans-serif;
     font-weight: 500;
@@ -425,8 +340,6 @@ aside.main-sidebar.sidebar-dark-primary {
     color: #ffd700;
     margin-bottom: 6px;
 }
-
-/* Input */
 .profile-input {
     background: transparent;
     border: 1px solid #615515;
@@ -436,21 +349,15 @@ aside.main-sidebar.sidebar-dark-primary {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
 }
-
 .profile-input::placeholder {
     color: rgba(115, 115, 115, 0.6);
 }
-
-/* Password wrapper */
 .password-wrapper {
     position: relative;
 }
-
 .password-wrapper .profile-input {
     padding-right: 45px;
 }
-
-/* Eye icon */
 .toggle-eye {
     position: absolute;
     right: 15px;
@@ -459,8 +366,6 @@ aside.main-sidebar.sidebar-dark-primary {
     color: #737373;
     cursor: pointer;
 }
-
-/* Button */
 .btn-edit-profile {
     background: #1261c8;
     color: #fff;
@@ -471,34 +376,22 @@ aside.main-sidebar.sidebar-dark-primary {
     border-radius: 8px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 .btn-edit-profile:hover {
     background: #0f4ea0;
     color: #fff;
 }
 
 /* ===================== */
-/* Packages Page */
+/* PACKAGES PAGE */
 /* ===================== */
-/* Header Packages */
 .packages-header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     border-bottom: 1px solid rgba(255, 215, 0, 0.4);
     padding-bottom: 12px;
     margin-bottom: 20px;
 }
-
-/* Title */
-/* .packages-header-bar h1 {
-    color: #ffd700;
-    font-weight: 700;
-    margin: 0;
-} */
-
-/* Icon filter */
 .header-actions {
     color: #ffd700;
     font-size: 20px;
@@ -508,47 +401,22 @@ aside.main-sidebar.sidebar-dark-primary {
     border-radius: 8px;
     border: 1px solid rgba(255, 215, 0, 0.3);
 }
-
 .header-actions:hover {
     background: rgba(255, 215, 0, 0.1);
     transform: scale(1.05);
 }
 
-/* .packages-wrapper {
-    display: flex;
-    justify-content: center;
-    padding: 40px 20px;
-} */
-
-/* .packages-container {
-    width: 1000px;
-} */
-
-/* Header */
-/* .packages-header h2 {
-    color: #ffd700;
-    font-weight: 700;
-} */
-
-/* .packages-header p {
-    color: rgba(255, 215, 0, 0.7);
-} */
-
 /* ===================== */
-/* PACKAGE CARD DESIGN */
+/* PACKAGE CARD DESIGN - BASE */
 /* ===================== */
 
 .package-item {
     position: relative;
     width: 100%;
-    height: 500px; /* lebih tinggi sedikit */
-
+    background: #1e1e1e;
     border: 1px solid #ffd700;
     border-radius: 14px;
-
     box-shadow: 0px 6px 18px rgba(240, 188, 15, 0.25);
-    background: #1e1e1e;
-
     overflow: hidden;
     transition: 0.3s ease;
 }
@@ -558,105 +426,283 @@ aside.main-sidebar.sidebar-dark-primary {
 }
 
 /* IMAGE */
+.package-image {
+    width: 100%;
+    overflow: hidden;
+}
+
 .package-image img {
     width: 100%;
-    height: 320px;
+    height: 220px;
     object-fit: cover;
-    border-radius: 8px 8px 0 0;
+    transition: transform 0.3s ease;
+}
+
+.package-item:hover .package-image img {
+    transform: scale(1.05);
 }
 
 /* TYPE */
 .package-type {
-    margin-top: 12px;
-    padding: 0 24px;
-
+    padding: 12px 16px 4px 16px;
     font-family: "Poppins", sans-serif;
-    font-size: 20px;
+    font-size: 14px;
+    font-weight: 600;
     color: #ffd700;
+    letter-spacing: 0.5px;
 }
 
 /* TITLE */
 .package-title {
-    padding: 6px 24px;
-
+    padding: 0 16px 8px 16px;
     font-family: "Poppins", sans-serif;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: 600;
     color: #f5e56b;
+    line-height: 1.4;
+    min-height: 50px;
 }
 
 /* PRICE */
 .package-price {
-    padding: 10px 24px;
-
+    padding: 0 16px 12px 16px;
     font-family: "Poppins", sans-serif;
-    font-size: 16px;
-    color: #ffd700;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 215, 0, 0.8);
 }
 
 /* BUTTON AREA */
 .package-action {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+    padding: 0 16px 16px 16px;
 }
 
-/* BUTTON */
 .package-action button {
+    width: 100%;
     background: linear-gradient(135deg, #f0bc0f, #ffd700);
     border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
-
+    padding: 10px 16px;
+    border-radius: 8px;
     color: #1e1e1e;
     font-weight: 700;
     font-size: 13px;
-
+    cursor: pointer;
     transition: 0.2s;
 }
 
 .package-action button:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     background: #ffd700;
 }
 
-/* modal package */
-.package-modal {
-    border-radius: 12px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+/* ===================== */
+/* HORIZONTAL SCROLL - MOBILE */
+/* ===================== */
+
+.packages-wrapper {
+    padding: 0 4px;
 }
 
-.package-modal h2 {
-    font-size: 32px;
+.packages-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
 }
 
-.package-modal h3 {
-    font-size: 24px;
-    color: rgba(0, 0, 0, 0.7);
+.packages-container .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 14px;
+    margin: 0;
+    padding: 4px 4px 16px 4px;
 }
 
-.package-modal p {
-    font-size: 14px;
+.packages-container .col-md-6 {
+    flex: 0 0 auto;
+    width: 270px;
+    padding: 0;
+    margin: 0;
 }
 
-.package-modal .badge {
-    background: #f0bc0f !important;
-    color: #000;
-    font-weight: 500;
-    padding: 6px 10px;
+.package-item {
+    width: 100%;
+    height: auto;
+    min-height: 380px;
+}
+.packages-container::-webkit-scrollbar {
+    height: 4px;
+}
+.packages-container::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
+}
+.packages-container::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 10px;
+}
+.packages-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #1e1e1e);
+    pointer-events: none;
+    display: none;
 }
 
-/* ===== MODAL CONTAINER (DIPERKECIL) ===== */
+/* Scroll indicator */
+.scroll-indicator {
+    display: none;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+.scroll-indicator span {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(255, 215, 0, 0.15);
+    border-radius: 20px;
+    font-size: 11px;
+    color: #ffd700;
+    font-family: "Poppins", sans-serif;
+}
+
+.scroll-indicator i {
+    margin: 0 4px;
+    font-size: 10px;
+}
+
+/* ===================== */
+/* RESPONSIVE BREAKPOINTS */
+/* ===================== */
+@media (max-width: 768px) {
+    .packages-container::after {
+        display: block;
+    }
+    .scroll-indicator {
+        display: block;
+    }
+
+    /* Modal responsive */
+    #packageModal .modal-dialog {
+        max-width: 95%;
+    }
+    .package-modal {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .modal-inner {
+        flex-direction: column;
+    }
+    .modal-left,
+    .modal-right {
+        width: 100%;
+        padding: 16px;
+    }
+    .modal-right {
+        padding-top: 0;
+    }
+    .modal-img {
+        height: 200px;
+    }
+    .btn-booking {
+        max-width: 100%;
+    }
+
+    /* Filter modal responsive */
+    #filterModal .modal-dialog {
+        right: 10px;
+        top: 70px;
+    }
+    .filter-modal-content {
+        width: 180px;
+    }
+    .filter-title {
+        font-size: 18px;
+    }
+    .filter-label {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 769px) {
+    .packages-wrapper {
+        padding: 0;
+    }
+
+    .packages-container {
+        overflow-x: visible;
+        overflow-y: visible;
+    }
+
+    .packages-container .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 0;
+    }
+
+    .packages-container .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        width: auto;
+        padding: 0 12px;
+    }
+
+    .packages-container::after {
+        display: none;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    .package-image img {
+        height: 260px;
+    }
+
+    .package-title {
+        font-size: 18px;
+        min-height: 55px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .packages-container .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .package-image img {
+        height: 280px;
+    }
+}
+
+@media (min-width: 992px) {
+    .packages-container .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* ===================== */
+/* MODAL PACKAGE STYLING */
+/* ===================== */
 #packageModal .modal-dialog {
     max-width: 780px;
     width: 90%;
     margin: auto;
 }
-
 .modal-backdrop.show {
-    background-color: rgb(0, 0, 0) !important;
-    backdrop-filter: blur(6px);
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(4px);
 }
-
 .package-modal {
     position: relative;
     height: auto;
@@ -666,31 +712,23 @@ aside.main-sidebar.sidebar-dark-primary {
     box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
     overflow: hidden;
 }
-
-/* ===== INNER FLEX ===== */
 .modal-inner {
     display: flex;
     height: 100%;
 }
-
-/* ===== LEFT SIDE (DIPERKECIL) ===== */
 .modal-left {
     width: 50%;
     padding: 20px;
 }
-
 .modal-img {
     width: 100%;
     height: 220px;
     object-fit: cover;
     border-radius: 6px;
 }
-
-/* DESCRIPTION (DIPERKECIL) */
 .modal-desc {
     margin-top: 16px;
 }
-
 .desc-title {
     font-family: "Poppins";
     font-weight: 600;
@@ -698,27 +736,22 @@ aside.main-sidebar.sidebar-dark-primary {
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 8px;
 }
-
 .desc-text {
     font-size: 12px;
     color: rgba(115, 115, 115, 0.8);
     line-height: 18px;
     margin-top: 0;
 }
-
-/* ===== RIGHT SIDE (DIPERKECIL) ===== */
 .modal-right {
     width: 50%;
     padding: 20px 20px 20px 0;
 }
-
 .type-text {
     font-size: 22px;
     font-weight: 700;
     color: #fdb931;
     line-height: 1.2;
 }
-
 .title-text {
     font-size: 18px;
     font-weight: 500;
@@ -726,8 +759,6 @@ aside.main-sidebar.sidebar-dark-primary {
     margin-top: 6px;
     line-height: 1.3;
 }
-
-/* LOCATION (DIPERKECIL) */
 .location {
     margin-top: 6px;
     font-size: 13px;
@@ -736,13 +767,10 @@ aside.main-sidebar.sidebar-dark-primary {
     align-items: center;
     gap: 6px;
 }
-
 .location svg {
     width: 16px;
     height: 16px;
 }
-
-/* FEATURES (DIPERKECIL) */
 .features-title {
     margin-top: 16px;
     font-size: 16px;
@@ -750,14 +778,12 @@ aside.main-sidebar.sidebar-dark-primary {
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 8px;
 }
-
 .features {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 0;
 }
-
 .features span {
     font-size: 11px;
     color: rgba(115, 115, 115, 0.8);
@@ -765,35 +791,26 @@ aside.main-sidebar.sidebar-dark-primary {
     padding: 4px 10px;
     border-radius: 20px;
 }
-
-/* PRICE (DIPERKECIL) */
 .price-box {
     margin-top: 16px;
 }
-
 .price-title {
     font-size: 18px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 4px;
 }
-
 .price-text {
     font-size: 14px;
     color: rgba(115, 115, 115, 0.8);
 }
-
-/* BOOKING FORM (DIPERKECIL) */
 .booking-box {
     margin-top: 16px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-        "checkin checkout"
-        "guest guest";
+    grid-template-areas: "checkin checkout" "guest guest";
     gap: 10px;
 }
-
 .box {
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 6px;
@@ -803,14 +820,12 @@ aside.main-sidebar.sidebar-dark-primary {
     flex-direction: column;
     gap: 4px;
 }
-
 .box label {
     font-size: 11px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.7);
     margin-bottom: 0;
 }
-
 .box input,
 .box select {
     border: none;
@@ -820,20 +835,15 @@ aside.main-sidebar.sidebar-dark-primary {
     background: transparent;
     padding: 0;
 }
-
 .checkin {
     grid-area: checkin;
 }
-
 .checkout {
     grid-area: checkout;
 }
-
 .guest {
     grid-area: guest;
 }
-
-/* BUTTON (DIPERKECIL) */
 .btn-booking {
     margin-top: 18px;
     width: 100%;
@@ -848,13 +858,10 @@ aside.main-sidebar.sidebar-dark-primary {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
 .btn-booking:hover {
     background: #d4a30c;
     transform: translateY(-1px);
 }
-
-/* CLOSE BUTTON (DIPERKECIL) */
 .modal-close-btn {
     position: absolute;
     top: 8px;
@@ -867,20 +874,149 @@ aside.main-sidebar.sidebar-dark-primary {
     color: rgba(0, 0, 0, 0.5);
     padding: 4px;
 }
-
 .modal-close-btn:hover {
     color: rgba(0, 0, 0, 0.8);
 }
 
-/* RESPONSIVE UNTUK LAYAR KECIL */
-@media (max-width: 768px) {
+/* ===================== */
+/* MODAL FILTER STYLING */
+/* ===================== */
+.modal-filter-dialog {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    margin: 0;
+    width: auto;
+}
+.filter-modal-content {
+    width: 200px;
+    background: #ffd700;
+    border: 1px solid #ffd700;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.8);
+}
+.filter-title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: #ffffff;
+}
+.filter-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+.filter-close svg {
+    display: block;
+}
+.filter-body {
+    padding: 0 12px 12px 12px;
+}
+.filter-group {
+    position: relative;
+    margin-bottom: 8px;
+}
+.filter-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+}
+.filter-label span {
+    color: #ffffff;
+}
+.arrow-icon {
+    transition: transform 0.2s ease;
+}
+.filter-label.open .arrow-icon {
+    transform: rotate(90deg);
+}
+.filter-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.filter-option {
+    padding: 10px 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #f0bc0f;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.filter-option:hover {
+    background: rgba(240, 188, 15, 0.1);
+}
+.filter-option.active {
+    background: rgba(240, 188, 15, 0.2);
+    font-weight: 500;
+}
+.selected-filter {
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 8px 18px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.selected-filter span {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #f0bc0f;
+}
+.selected-filter:hover {
+    opacity: 0.9;
+    transform: translateX(2px);
+}
+#filterModal .modal-dialog {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    margin: 0;
+}
+
+/* ===================== */
+/* MODAL RESPONSIVE - LENGKAP */
+/* ===================== */
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    /* Package Modal */
     #packageModal .modal-dialog {
         max-width: 95%;
+        margin: 10px auto;
     }
 
     .package-modal {
-        max-height: 90vh;
-        overflow-y: auto;
+        max-height: 95vh;
+        border-radius: 12px;
     }
 
     .modal-inner {
@@ -898,6 +1034,137 @@ aside.main-sidebar.sidebar-dark-primary {
     }
 
     .modal-img {
+        height: 180px;
+    }
+
+    .desc-title {
+        font-size: 16px;
+    }
+
+    .desc-text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .type-text {
+        font-size: 18px;
+    }
+
+    .title-text {
+        font-size: 16px;
+    }
+
+    .location {
+        font-size: 11px;
+    }
+
+    .features-title {
+        font-size: 14px;
+        margin-top: 12px;
+    }
+
+    .features span {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+
+    .price-title {
+        font-size: 16px;
+    }
+
+    .price-text {
+        font-size: 12px;
+    }
+
+    .booking-box {
+        gap: 8px;
+    }
+
+    .box {
+        padding: 6px 8px;
+    }
+
+    .box label {
+        font-size: 10px;
+    }
+
+    .box input,
+    .box select {
+        font-size: 11px;
+    }
+
+    .btn-booking {
+        height: 42px;
+        font-size: 14px;
+        max-width: 100%;
+        margin-top: 14px;
+    }
+
+    .modal-close-btn {
+        top: 6px;
+        right: 10px;
+        font-size: 18px;
+    }
+
+    /* Filter Modal */
+    #filterModal .modal-dialog {
+        right: 5px;
+        top: 60px;
+    }
+
+    .filter-modal-content {
+        width: 160px;
+    }
+
+    .filter-title {
+        font-size: 16px;
+    }
+
+    .filter-label {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+
+    .filter-option {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .selected-filter {
+        padding: 6px 12px;
+    }
+
+    .selected-filter span {
+        font-size: 12px;
+    }
+}
+
+/* Medium Mobile (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Package Modal */
+    #packageModal .modal-dialog {
+        max-width: 90%;
+    }
+
+    .package-modal {
+        max-height: 90vh;
+    }
+
+    .modal-inner {
+        flex-direction: column;
+    }
+
+    .modal-left,
+    .modal-right {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .modal-right {
+        padding-top: 0;
+    }
+
+    .modal-img {
         height: 200px;
     }
 
@@ -906,171 +1173,207 @@ aside.main-sidebar.sidebar-dark-primary {
     }
 }
 
-/* ===================== */
-/* MODAL FILTER - FIGMA STYLE */
-/* ===================== */
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Package Modal */
+    #packageModal .modal-dialog {
+        max-width: 85%;
+    }
 
-/* Modal Dialog */
-.modal-filter-dialog {
-    position: fixed;
-    right: 20px;
-    top: 80px;
-    margin: 0;
-    width: auto;
+    .package-modal {
+        max-height: 85vh;
+    }
+
+    .modal-left {
+        padding: 20px;
+    }
+
+    .modal-right {
+        padding: 20px 20px 20px 0;
+    }
+
+    .modal-img {
+        height: 200px;
+    }
+
+    .type-text {
+        font-size: 20px;
+    }
+
+    .title-text {
+        font-size: 17px;
+    }
+
+    .desc-title {
+        font-size: 17px;
+    }
+
+    .price-title {
+        font-size: 17px;
+    }
+
+    .btn-booking {
+        max-width: 180px;
+        height: 44px;
+        font-size: 14px;
+    }
 }
 
-.modal-filter-dialog .modal-content {
-    background: #ffd700;
-    border: none;
+/* Landscape Mobile (max-height: 600px) */
+@media (max-height: 600px) and (orientation: landscape) {
+    /* Package Modal */
+    .package-modal {
+        max-height: 95vh;
+    }
+
+    .modal-left {
+        padding: 12px;
+    }
+
+    .modal-right {
+        padding: 12px 12px 12px 0;
+    }
+
+    .modal-img {
+        height: 140px;
+    }
+
+    .modal-desc {
+        margin-top: 8px;
+    }
+
+    .desc-title {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .desc-text {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .type-text {
+        font-size: 16px;
+    }
+
+    .title-text {
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .location {
+        margin-top: 2px;
+        font-size: 10px;
+    }
+
+    .features-title {
+        margin-top: 8px;
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .features {
+        gap: 6px;
+    }
+
+    .features span {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    .price-box {
+        margin-top: 8px;
+    }
+
+    .price-title {
+        font-size: 12px;
+        margin-bottom: 2px;
+    }
+
+    .price-text {
+        font-size: 10px;
+    }
+
+    .booking-box {
+        margin-top: 8px;
+        gap: 6px;
+    }
+
+    .box {
+        padding: 4px 6px;
+    }
+
+    .box label {
+        font-size: 9px;
+    }
+
+    .box input,
+    .box select {
+        font-size: 10px;
+    }
+
+    .btn-booking {
+        margin-top: 8px;
+        height: 36px;
+        font-size: 12px;
+    }
 }
 
-/* Filter Modal Content */
-.filter-modal-content {
-    width: 200px;
-    background: #ffd700;
-    border: 1px solid #ffd700;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    overflow: hidden;
+/* Desktop Large (min-width: 1400px) */
+@media (min-width: 1400px) {
+    #packageModal .modal-dialog {
+        max-width: 900px;
+    }
+
+    .package-modal {
+        max-height: 600px;
+    }
+
+    .modal-img {
+        height: 260px;
+    }
+
+    .modal-left {
+        padding: 24px;
+    }
+
+    .modal-right {
+        padding: 24px 24px 24px 0;
+    }
+
+    .type-text {
+        font-size: 26px;
+    }
+
+    .title-text {
+        font-size: 22px;
+    }
+
+    .desc-title {
+        font-size: 20px;
+    }
+
+    .desc-text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .features-title {
+        font-size: 18px;
+    }
+
+    .price-title {
+        font-size: 20px;
+    }
+
+    .btn-booking {
+        max-width: 220px;
+        height: 52px;
+        font-size: 18px;
+    }
 }
 
-/* Header Filter */
-.filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    border-bottom: 0.5px solid rgba(255, 255, 255, 0.8);
-}
-
-.filter-title {
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 30px;
-    color: #ffffff;
-}
-
-.filter-close {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.filter-close svg {
-    display: block;
-}
-
-/* Filter Body */
-.filter-body {
-    padding: 0 12px 12px 12px;
-}
-
-/* Filter Group */
-.filter-group {
-    position: relative;
-    margin-bottom: 8px;
-}
-
-.filter-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #ffffff;
-}
-
-.filter-label span {
-    color: #ffffff;
-}
-
-.arrow-icon {
-    transition: transform 0.2s ease;
-}
-
-.filter-label.open .arrow-icon {
-    transform: rotate(90deg);
-}
-
-/* Filter Options Dropdown */
-.filter-options {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    z-index: 100;
-    overflow: hidden;
-    margin-top: 4px;
-}
-
-.filter-option {
-    padding: 10px 16px;
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    color: #f0bc0f;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.filter-option:hover {
-    background: rgba(240, 188, 15, 0.1);
-}
-
-.filter-option.active {
-    background: rgba(240, 188, 15, 0.2);
-    font-weight: 500;
-}
-
-/* Selected Filter (Pilihan yang sudah dipilih) */
-.selected-filter {
-    background: #ffffff;
-    border-radius: 4px;
-    padding: 8px 18px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.selected-filter span {
-    font-family: "Poppins", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    color: #f0bc0f;
-}
-
-.selected-filter:hover {
-    opacity: 0.9;
-    transform: translateX(2px);
-}
-
-/* Posisi Modal Filter (di samping kanan icon filter) */
-#filterModal .modal-dialog {
-    position: absolute;
-    right: 20px;
-    top: 60px;
-    margin: 0;
-}
-
-/* Responsive untuk mobile */
+/* Filter Modal Responsive untuk semua ukuran */
 @media (max-width: 768px) {
     #filterModal .modal-dialog {
         right: 10px;
@@ -1078,34 +1381,501 @@ aside.main-sidebar.sidebar-dark-primary {
     }
 
     .filter-modal-content {
-        width: 180px;
+        width: 170px;
     }
 
     .filter-title {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .filter-label {
-        font-size: 14px;
+        font-size: 13px;
+    }
+
+    .filter-option {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .selected-filter {
+        padding: 6px 14px;
+    }
+
+    .selected-filter span {
+        font-size: 12px;
     }
 }
 
-/* RIWAYAT */
+/* Filter Modal - Landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+    #filterModal .modal-dialog {
+        top: 50px;
+    }
+
+    .filter-modal-content {
+        width: 150px;
+    }
+
+    .filter-header {
+        padding: 8px;
+    }
+
+    .filter-title {
+        font-size: 14px;
+    }
+
+    .filter-body {
+        padding: 0 8px 8px 8px;
+    }
+
+    .filter-label {
+        padding: 4px 0;
+        font-size: 11px;
+    }
+
+    .filter-option {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+
+    .selected-filter {
+        padding: 4px 10px;
+        margin-bottom: 6px;
+    }
+
+    .selected-filter span {
+        font-size: 11px;
+    }
+}
+
+.modal-backdrop.show {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(4px);
+}
+
+/* Animasi modal masuk */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: none;
+}
+
+/* Scroll dalam modal untuk mobile */
+@media (max-width: 768px) {
+    .package-modal {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-inner {
+        overflow-y: visible;
+    }
+}
+
+/* ===================== */
+/* RIWAYAT PAGE */
+/* ===================== */
 .riwayat-wrapper {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-
-.riwayat-page {
-    max-height: calc(100vh - 160px); /* header + spacing */
+/* .riwayat-page {
+    max-height: calc(100vh - 160px);
     overflow-y: auto;
     padding-right: 10px;
+} */
+/* .riwayat-page::-webkit-scrollbar {
+    width: 6px;
+}
+.riwayat-page::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 10px;
+} */
+.riwayat-card {
+    display: flex;
+    width: 100%;
+    height: 320px;
+    border: 1px solid #ffd700;
+    border-radius: 8px;
+    padding: 24px;
+    gap: 30px;
+    background: transparent;
+}
+.riwayat-image {
+    width: 393px;
+    height: 232px;
+    flex-shrink: 0;
+}
+.riwayat-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.riwayat-content {
+    flex: 1;
+    position: relative;
+}
+.riwayat-title {
+    font-family: "Poppins";
+    font-size: 24px;
+    font-weight: 600;
+    color: #f5e56b;
+}
+.riwayat-line {
+    width: 100%;
+    height: 1px;
+    background: #615515;
+    margin: 10px 0 15px;
+}
+.riwayat-info p {
+    font-size: 20px;
+    color: #b4ac6f;
+    margin-bottom: 12px;
+    font-family: "Poppins";
+}
+.riwayat-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.riwayat-status span {
+    font-size: 20px;
+    color: #b4ac6f;
+}
+.badge {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #fff;
+}
+.badge.success {
+    background: #4eb149;
+}
+.badge.cancel {
+    background: #ea2f1e;
 }
 
-/* optional styling scroll */
+/* ===================== */
+/* RIWAYAT PAGE - RESPONSIVE */
+/* ===================== */
+
+/* Base styles sudah ada, tambahkan ini */
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .riwayat-wrapper {
+        gap: 16px;
+        padding: 0 8px;
+    }
+
+    .riwayat-card {
+        flex-direction: column;
+        height: auto;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .riwayat-image {
+        width: 100%;
+        height: 180px;
+    }
+
+    .riwayat-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .riwayat-content {
+        width: 100%;
+    }
+
+    .riwayat-title {
+        font-size: 18px;
+    }
+
+    .riwayat-info p {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .riwayat-status span {
+        font-size: 14px;
+    }
+
+    .badge {
+        padding: 3px 10px;
+        font-size: 12px;
+    }
+
+    .riwayat-line {
+        margin: 8px 0 10px;
+    }
+}
+
+/* Medium Mobile (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .riwayat-wrapper {
+        gap: 18px;
+        padding: 0 12px;
+    }
+
+    .riwayat-card {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 18px;
+    }
+
+    .riwayat-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .riwayat-content {
+        width: 100%;
+    }
+
+    .riwayat-title {
+        font-size: 20px;
+    }
+
+    .riwayat-info p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .riwayat-status span {
+        font-size: 15px;
+    }
+
+    .badge {
+        padding: 4px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Tablet (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .riwayat-wrapper {
+        gap: 20px;
+        padding: 0 16px;
+    }
+
+    .riwayat-card {
+        height: auto;
+        min-height: 280px;
+        padding: 20px;
+        gap: 24px;
+    }
+
+    .riwayat-image {
+        width: 280px;
+        height: 200px;
+    }
+
+    .riwayat-title {
+        font-size: 22px;
+    }
+
+    .riwayat-info p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .riwayat-status span {
+        font-size: 16px;
+    }
+
+    .badge {
+        font-size: 14px;
+    }
+}
+
+/* Desktop Small (1025px - 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .riwayat-wrapper {
+        gap: 22px;
+        padding: 0 20px;
+    }
+
+    .riwayat-card {
+        height: 300px;
+        padding: 22px;
+        gap: 28px;
+    }
+
+    .riwayat-image {
+        width: 320px;
+        height: 210px;
+    }
+
+    .riwayat-title {
+        font-size: 23px;
+    }
+
+    .riwayat-info p {
+        font-size: 18px;
+    }
+}
+
+/* Desktop Large (min-width: 1281px) */
+@media (min-width: 1281px) {
+    .riwayat-wrapper {
+        gap: 24px;
+        padding: 0 24px;
+    }
+
+    .riwayat-card {
+        height: 320px;
+        padding: 24px;
+        gap: 30px;
+    }
+
+    .riwayat-image {
+        width: 393px;
+        height: 232px;
+    }
+
+    .riwayat-title {
+        font-size: 24px;
+    }
+
+    .riwayat-info p {
+        font-size: 20px;
+    }
+}
+
+/* Landscape Mobile Mode */
+@media (max-height: 600px) and (orientation: landscape) {
+    .riwayat-wrapper {
+        gap: 12px;
+        padding: 0 12px;
+    }
+
+    .riwayat-card {
+        flex-direction: row;
+        height: auto;
+        min-height: 180px;
+        padding: 12px;
+        gap: 16px;
+    }
+
+    .riwayat-image {
+        width: 180px;
+        height: 140px;
+    }
+
+    .riwayat-content {
+        flex: 1;
+    }
+
+    .riwayat-title {
+        font-size: 16px;
+    }
+
+    .riwayat-line {
+        margin: 6px 0 8px;
+    }
+
+    .riwayat-info p {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .riwayat-status {
+        margin-top: 6px;
+    }
+
+    .riwayat-status span {
+        font-size: 12px;
+    }
+
+    .badge {
+        padding: 2px 8px;
+        font-size: 10px;
+    }
+}
+
+/* Empty State (jika tidak ada data) */
+.riwayat-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background: #1e1e1e;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 16px;
+}
+
+.riwayat-empty i {
+    font-size: 64px;
+    color: rgba(255, 215, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.riwayat-empty p {
+    font-size: 16px;
+    color: rgba(255, 215, 0, 0.7);
+    font-family: "Poppins", sans-serif;
+}
+
+/* Loading State */
+.riwayat-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.riwayat-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 215, 0, 0.3);
+    border-top-color: #ffd700;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Hover effect untuk card */
+.riwayat-card {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.riwayat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.15);
+}
+
+/* Scrollbar untuk konten riwayat .riwayat-page {
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    padding-right: 10px;
+    scroll-behavior: smooth;
+}
+
 .riwayat-page::-webkit-scrollbar {
     width: 6px;
+}
+
+.riwayat-page::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
 }
 
 .riwayat-page::-webkit-scrollbar-thumb {
@@ -1113,92 +1883,27 @@ aside.main-sidebar.sidebar-dark-primary {
     border-radius: 10px;
 }
 
-/* CARD OUTER */
-.riwayat-card {
-    display: flex;
-    width: 100%;
-    height: 320px;
+.riwayat-page::-webkit-scrollbar-thumb:hover {
+    background: #f0bc0f;
+} */
 
-    border: 1px solid #ffd700;
-    border-radius: 8px;
+/* Responsive untuk header riwayat */
+@media (max-width: 768px) {
+    .packages-header-bar {
+        padding: 0 12px 12px 12px;
+    }
 
-    padding: 24px;
-    gap: 30px;
-
-    background: transparent;
+    .packages-header-bar h1 {
+        font-size: 20px;
+    }
 }
 
-/* IMAGE */
-.riwayat-image {
-    width: 393px;
-    height: 232px;
-    flex-shrink: 0;
-}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .packages-header-bar {
+        padding: 0 16px 12px 16px;
+    }
 
-.riwayat-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-/* RIGHT CONTENT */
-.riwayat-content {
-    flex: 1;
-    position: relative;
-}
-
-/* TITLE */
-.riwayat-title {
-    font-family: "Poppins";
-    font-size: 24px;
-    font-weight: 600;
-    color: #f5e56b;
-}
-
-/* LINE */
-.riwayat-line {
-    width: 100%;
-    height: 1px;
-    background: #615515;
-    margin: 10px 0 15px;
-}
-
-/* TEXT INFO */
-.riwayat-info p {
-    font-size: 20px;
-    color: #b4ac6f;
-    margin-bottom: 12px;
-    font-family: "Poppins";
-}
-
-/* STATUS WRAP */
-.riwayat-status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.riwayat-status span {
-    font-size: 20px;
-    color: #b4ac6f;
-}
-
-/* BADGE */
-.badge {
-    padding: 4px 12px;
-    border-radius: 8px;
-    font-size: 16px;
-    color: #fff;
-}
-
-/* SUCCESS */
-.badge.success {
-    background: #4eb149;
-}
-
-/* CANCEL */
-.badge.cancel {
-    background: #ea2f1e;
+    .packages-header-bar h1 {
+        font-size: 24px;
+    }
 }

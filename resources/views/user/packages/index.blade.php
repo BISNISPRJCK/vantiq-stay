@@ -16,94 +16,114 @@
 @section('content')
 <div class="packages-wrapper">
 
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <span><i class="fas fa-chevron-left"></i> Geser ke kiri/kanan <i class="fas fa-chevron-right"></i></span>
+    </div>
+
     <div class="packages-container">
-
         <div class="row">
-
-            {{-- CARD 1 --}}
+            
+            <!-- CARD 1 -->
             <div class="col-md-6 mb-4">
                 <div class="package-item">
-
-                    {{-- IMAGE --}}
                     <div class="package-image">
-                        <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471" alt="">
+                        <img src="https://images.unsplash.com/photo-1501183638710-841dd1904471" alt="Package">
                     </div>
-
-                    {{-- TYPE --}}
                     <div class="package-type">Tipe 1</div>
-
-                    {{-- TITLE --}}
-                    <div class="package-title">
-                        Grand Asia Afrika Apartment
-                    </div>
-
-                    {{-- PRICE --}}
-                    <div class="package-price">
-                        Price IDR 100,000 - 500,000
-                    </div>
-
-                    {{-- BUTTON --}}
-                   <div class="package-action">
-                       <button 
-                            class="btn btn-warning btn-view-detail"
+                    <div class="package-title">Grand Asia Afrika Apartment</div>
+                    <div class="package-price">Price IDR 100,000 - 500,000</div>
+                    <div class="package-action">
+                        <button class="btn-view-detail"
                             data-toggle="modal"
                             data-target="#packageModal"
-                            data-title="Luxury Villa Bandung"
-                            data-type="Tipe 2"
-                            data-price="IDR 500,000 - 1,000,000"
-                            data-image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
-                            data-desc="Lorem ipsum dolor sit amet consectetur adipiscing elit..."
-                        >
+                            data-title="Grand Asia Afrika Apartment"
+                            data-type="Tipe 1"
+                            data-price="IDR 100,000 - 500,000"
+                            data-image="https://images.unsplash.com/photo-1501183638710-841dd1904471"
+                            data-desc="Lorem ipsum dolor sit amet consectetur adipiscing elit...">
                             View Detail
                         </button>
                     </div>
-
                 </div>
             </div>
 
-            {{-- CARD 2 --}}
+            <!-- CARD 2 -->
             <div class="col-md-6 mb-4">
                 <div class="package-item">
-
                     <div class="package-image">
-                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="Package">
                     </div>
-
                     <div class="package-type">Tipe 2</div>
-
-                    <div class="package-title">
-                        Luxury Villa Bandung
-                    </div>
-
-                    <div class="package-price">
-                        Price IDR 500,000 - 1,000,000
-                    </div>
-
+                    <div class="package-title">Luxury Villa Bandung</div>
+                    <div class="package-price">Price IDR 500,000 - 1,000,000</div>
                     <div class="package-action">
-                        <button 
-                            class="btn btn-warning btn-view-detail"
+                        <button class="btn-view-detail"
                             data-toggle="modal"
                             data-target="#packageModal"
                             data-title="Luxury Villa Bandung"
                             data-type="Tipe 2"
                             data-price="IDR 500,000 - 1,000,000"
                             data-image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
-                            data-desc="Lorem ipsum dolor sit amet consectetur adipiscing elit..."
-                        >
+                            data-desc="Lorem ipsum dolor sit amet consectetur adipiscing elit...">
                             View Detail
                         </button>
                     </div>
+                </div>
+            </div>
 
+            <!-- CARD 3 -->
+            <div class="col-md-6 mb-4">
+                <div class="package-item">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" alt="Package">
+                    </div>
+                    <div class="package-type">Tipe 3</div>
+                    <div class="package-title">Mountain View Resort</div>
+                    <div class="package-price">Price IDR 750,000 - 1,200,000</div>
+                    <div class="package-action">
+                        <button class="btn-view-detail"
+                            data-toggle="modal"
+                            data-target="#packageModal"
+                            data-title="Mountain View Resort"
+                            data-type="Tipe 3"
+                            data-price="IDR 750,000 - 1,200,000"
+                            data-image="https://images.unsplash.com/photo-1566073771259-6a8506099945"
+                            data-desc="Mountain view resort dengan pemandangan indah...">
+                            View Detail
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="col-md-6 mb-4">
+                <div class="package-item">
+                    <div class="package-image">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" alt="Package">
+                    </div>
+                    <div class="package-type">Tipe 4</div>
+                    <div class="package-title">Beachfront Hotel</div>
+                    <div class="package-price">Price IDR 1,000,000 - 1,500,000</div>
+                    <div class="package-action">
+                        <button class="btn-view-detail"
+                            data-toggle="modal"
+                            data-target="#packageModal"
+                            data-title="Beachfront Hotel"
+                            data-type="Tipe 4"
+                            data-price="IDR 1,000,000 - 1,500,000"
+                            data-image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"
+                            data-desc="Hotel tepi pantai dengan akses langsung ke pantai...">
+                            View Detail
+                        </button>
+                    </div>
                 </div>
             </div>
 
         </div>
-
     </div>
 
 </div>
-
-<!-- Modal Wrapper WAJIB -->
 <!-- Modal Detail Package (UKURAN DIPERKECIL) -->
 <div class="modal fade" id="packageModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -449,6 +469,36 @@ document.addEventListener('DOMContentLoaded', function() {
         filterPackages();
     }
 
+});
+</script>
+@endpush
+
+@push('js')
+<script>
+// Tambahan untuk horizontal scroll (opsional)
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto scroll ke card pertama saat load (jika diperlukan)
+    const container = document.querySelector('.packages-container');
+    if (container && window.innerWidth <= 768) {
+        // Optional: reset scroll position ke awal
+        container.scrollLeft = 0;
+    }
+    
+    // Deteksi swipe untuk mobile (opsional)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    if (container) {
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        container.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            // Bisa ditambahkan logic untuk scroll halus
+        });
+    }
 });
 </script>
 @endpush

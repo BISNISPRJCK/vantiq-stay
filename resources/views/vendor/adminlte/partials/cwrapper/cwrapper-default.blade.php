@@ -33,13 +33,13 @@
     </div>
 
     {{-- Footer --}}
-   <div class="content-footer">
+   <!-- <div class="content-footer">
         <div class="footer-box">
             <i class="far fa-copyright footer-icon"></i>
             <span class="footer-text">
                 Copyright 2026 by Vantix Stay. All Rights Reserved.
             </span>
         </div>
-    </div>
+    </div> -->
 
 </div>
