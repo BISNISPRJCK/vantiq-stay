@@ -395,7 +395,7 @@
     <div class="auth-bg"></div>
     <div class="auth-wrapper">
         <div class="auth-grid">
-            <!-- Image Side - Now on Right -->
+            <!-- Image Side -->
             <div class="auth-image">
                 <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800" alt="Luxury Penthouse">
                 <div class="auth-image-overlay">
@@ -404,7 +404,7 @@
                 </div>
             </div>
             
-            <!-- Form Side - Now on Left -->
+            <!-- Form Side -->
             <div class="auth-form">
                 <div class="auth-header">
                     <h2>Create Account</h2>
@@ -421,32 +421,18 @@
                 <form action="{{ route('register.submit') }}" method="POST">
                     @csrf
 
-                    <!-- First & Last Name -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-icon">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <input type="text" 
-                                    name="first_name" 
-                                    class="auth-input" 
-                                    placeholder="First Name"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-icon">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <input type="text" 
-                                    name="last_name" 
-                                    class="auth-input" 
-                                    placeholder="Last Name"
-                                    required>
-                            </div>
+                    <!-- Name (single field, sesuai backend) -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" 
+                                name="name" 
+                                class="auth-input" 
+                                placeholder="Full Name"
+                                value="{{ old('name') }}"
+                                required>
                         </div>
                     </div>
 
@@ -460,6 +446,7 @@
                                 name="email" 
                                 class="auth-input" 
                                 placeholder="Email Address"
+                                value="{{ old('email') }}"
                                 required>
                         </div>
                     </div>

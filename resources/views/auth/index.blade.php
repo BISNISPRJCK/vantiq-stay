@@ -990,18 +990,12 @@
                     
                     <form id="registerForm" onsubmit="return handleRegister(event)">
                         @csrf
-                        <div class="form-row">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-icon"><i class="fas fa-user"></i></span>
-                                    <input type="text" id="first_name" name="first_name" class="auth-input" placeholder="First Name" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-icon"><i class="fas fa-user"></i></span>
-                                    <input type="text" id="last_name" name="last_name" class="auth-input" placeholder="Last Name" required>
-                                </div>
+
+                        <!-- Name (single field, sesuai backend) -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-icon"><i class="fas fa-user"></i></span>
+                                <input type="text" id="name" name="name" class="auth-input" placeholder="Full Name" required>
                             </div>
                         </div>
                         
@@ -1214,7 +1208,8 @@
         return false;
     }
     
-    function handleLogin(event) {
+    // handle login
+   async function handleLogin(event) {
         event.preventDefault();
         
         const email = document.getElementById('email').value.trim();
@@ -1230,73 +1225,122 @@
             showLoginError('Please fill in both email and password.');
             return false;
         }
-        
-        // Demo credentials check
-        if (email === 'admin@vantix.com' && password === '123456') {
-            if (rememberCheckbox.checked) {
-                localStorage.setItem('rememberedEmail', email);
+
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Simpan token & user ke localStorage
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('auth_user', JSON.stringify(data.user));
+
+                if (rememberCheckbox.checked) {
+                    localStorage.setItem('rememberedEmail', email);
+                } else {
+                    localStorage.removeItem('rememberedEmail');
+                }
+
+                showLoginSuccess('Login berhasil! Mengalihkan ke halaman booking...');
+
+                setTimeout(function() {
+                    window.location.href = '/booking'; // ← redirect ke /booking
+                }, 1500);
+
             } else {
-                localStorage.removeItem('rememberedEmail');
+                showLoginError(data.message || 'Email atau password salah.');
             }
-            
-            showLoginSuccess('Login successful! Redirecting to dashboard...');
-            
-            setTimeout(function() {
-                window.location.href = '/';
-            }, 1500);
-        } else {
-            showLoginError('Invalid email or password. Try: admin@vantix.com / 123456');
+
+        } catch (error) {
+            showLoginError('Terjadi kesalahan. Silakan coba lagi.');
+            console.error(error);
         }
-        
+
         return false;
     }
     
-    function handleRegister(event) {
+    // handle regis
+    async function handleRegister(event) {
         event.preventDefault();
-        
-        const firstName = document.getElementById('first_name').value.trim();
-        const lastName = document.getElementById('last_name').value.trim();
+
+        const name = document.getElementById('name').value.trim();
         const email = document.getElementById('reg_email').value.trim();
         const password = document.getElementById('reg_password').value;
         const confirmPassword = document.getElementById('password_confirmation').value;
         const termsCheckbox = document.getElementById('termsCheckbox');
         const errorAlert = document.getElementById('registerError');
         const errorMessageSpan = document.getElementById('registerErrorMessage');
-        
+
         errorAlert.style.display = 'none';
-        
-        if (!firstName || !lastName || !email || !password || !confirmPassword) {
+
+        // Validasi sisi client dulu
+        if (!name || !email || !password || !confirmPassword) {
             errorMessageSpan.textContent = 'Please fill in all fields.';
             errorAlert.style.display = 'flex';
             return false;
         }
-        
+
         if (password !== confirmPassword) {
             errorMessageSpan.textContent = 'Passwords do not match.';
             errorAlert.style.display = 'flex';
             return false;
         }
-        
+
         if (password.length < 6) {
             errorMessageSpan.textContent = 'Password must be at least 6 characters.';
             errorAlert.style.display = 'flex';
             return false;
         }
-        
+
         if (!termsCheckbox.checked) {
             errorMessageSpan.textContent = 'You must agree to the Terms of Service and Privacy Policy.';
             errorAlert.style.display = 'flex';
             return false;
         }
-        
-        alert(`✨ Registration successful!\n\nWelcome ${firstName} ${lastName}!\nEmail: ${email}\n\nPlease login with your new account.`);
-        
-        // Switch to login form after successful registration
-        switchToLogin();
-        
-        // Auto-fill email in login form
-        document.getElementById('email').value = email;
-        
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ name, email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Register berhasil, pindah ke login dan isi email otomatis
+                alert('✨ Registrasi berhasil! Silakan login dengan akun baru Anda.');
+                switchToLogin();
+                document.getElementById('email').value = email;
+
+            } else {
+                // Tampilkan pesan error dari backend (misal: email sudah dipakai)
+                const firstError = data.errors
+                    ? Object.values(data.errors)[0][0]
+                    : data.message;
+                errorMessageSpan.textContent = firstError;
+                errorAlert.style.display = 'flex';
+            }
+
+        } catch (error) {
+            errorMessageSpan.textContent = 'Terjadi kesalahan. Silakan coba lagi.';
+            errorAlert.style.display = 'flex';
+            console.error(error);
+        }
+
         return false;
     }
     
